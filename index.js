@@ -75,7 +75,10 @@ bot.action('enter_code', (ctx) => {
 // Проверка кода и выдача фильма
 bot.on('text', (ctx) => {
   const code = ctx.message.text.trim();
-  const movie = movies.find(m => m.code === code);
+  console.log('Введенный код:', code);  // Выводим введенный код в консоль для отладки
+
+  // Проверяем, что код существует в списке фильмов
+  const movie = movies.find(m => m.code.toString() === code);  // Приводим коды в строку для сравнения
 
   if (!movie) {
     return ctx.reply('❌ Неверный код. Попробуй снова.');
@@ -117,7 +120,6 @@ bot.action('start_over', (ctx) => {
 // Обработка ошибок
 bot.catch((err, ctx) => {
   console.error('Ошибка на этапе обработки запроса:', err);
-  // Игнорируем ошибки, чтобы бот не останавливался
   ctx.reply('❌ Произошла ошибка. Попробуйте еще раз.');
 });
 
